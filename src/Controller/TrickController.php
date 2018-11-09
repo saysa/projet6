@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Dimitri
  * Date: 09/11/2018
- * Time: 08:04
+ * Time: 11:51
  */
 
 namespace App\Controller;
@@ -13,19 +13,20 @@ use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/trick/{slug}", name="trick_view")
      * @param TrickRepository $repository
+     * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepage(TrickRepository $repository)
+    public function trickView(TrickRepository $repository, $slug)
     {
-        $tricks = $repository->findAll();
+        $trick = $repository->findOneBy(['slug' => $slug]);
 
-        return $this->render('pages/homepage.html.twig', [
-            'tricks' => $tricks
+        return $this->render('pages/trick_view.html.twig', [
+            'trick' => $trick
         ]);
     }
 

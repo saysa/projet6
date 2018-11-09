@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Vue du trick{% endblock %}
+
+{% block body %}
+    <h1>
+        Vue des articles en solo
+    </h1>
+    <div class="jumbotron">
+        <div class="col-lg-4 col-sm-12">
+            <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+        </div>
+    </div>
+    <div class="row">
+        <div class="container text-center">
+            <p>{{ trick.slug }}</p>
+            <hr>
+            <p>{{ trick.content|nl2br }}</p>
+        </div>
+    </div>
+
+
+{% endblock %}
