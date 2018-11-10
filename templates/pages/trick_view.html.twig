@@ -6,16 +6,34 @@
         Vue des articles en solo
     </h1>
     <div class="jumbotron">
-        <div class="col-lg-4 col-sm-12">
-            <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+        <div class="row">
+            <div class="col-md-4 my-1">
+                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+            </div>
+            <div class="col-md-4 my-1">
+                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+            </div>
+            <div class="col-md-4 my-1">
+                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container text-center">
-            <p>{{ trick.slug }}</p>
-            <hr>
-            <p>{{ trick.content|nl2br }}</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">{{ trick.slug }}</h2><hr>
+            </div>
+            <div class="col-12 text-justify">
+                <p>{{ trick.content|nl2br }}</p>
+                <hr>
+            </div>
+            <div class="col-12">
+                Catégorie : <i>{{ trick.category }}</i>
+            </div>
         </div>
+    </div>
+    <div class="container">
+        <h1>Les commentaires</h1>
     </div>
 
 
