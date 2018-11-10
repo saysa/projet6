@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Page d'édition{% endblock %}
+{% block title %}Création du trick{% endblock %}
 
 {% block body %}
     <div class="container text-center my-4">
         <h1 class="col-8 my-4">Page de modification</h1>
-        {{ include ('pages/forms.html.twig', {form: form, button: 'Editer'}) }}
+        {{ include ('pages/forms.html.twig', {form: form, button: 'Créer'}) }}
     </div>
 {% endblock %}

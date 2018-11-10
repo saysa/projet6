@@ -9,7 +9,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,14 +20,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/trick/{slug}", name="trick_view")
+     * @var TrickRepository
+     */
+    private $repository;
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    public function __construct(TrickRepository $repository, ObjectManager $em)
+    {
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+
+    /**
+     * @Route("/trick/view/{slug}", name="trick_view")
      * @param TrickRepository $repository
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function trickView(TrickRepository $repository, $slug)
+    public function trickView($slug)
     {
-        $trick = $repository->findOneBy(['slug' => $slug]);
+        $trick = $this->repository->findOneBy(['slug' => $slug]);
 
         return $this->render('pages/trick_view.html.twig', [
             'trick' => $trick
@@ -33,23 +51,58 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/edit/{slug}", name="trick_details")
+     * @param Trick $trick
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function trickDetails(TrickRepository $repository, $slug)
+    public function trickDetails(Trick $trick, Request $request)
     {
-        $trick = $repository->findOneBy(['slug' => $slug]);
-        return $this->render('pages/trick_details.html.twig');
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('pages/trick_details.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * @Route("/trick/new", name="trick_create")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function createTrick(Request $request)
+    {
+        $trick = new Trick();
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($trick);
+            $this->em->flush();
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('pages/trick_create.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+        ]);
+
     }
 
     /**
      * @Route("/trick/delete/{slug}", name="trick_delete")
+     * @param Trick $trick
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function trickDelete(Request $request, $slug)
+    public function trickDelete(Trick $trick)
     {
-        if ($request->isMethod('POST')) {
-            $request->getSession()->getFlashBag()->add('info', 'Annonce supprimée.');
-
-            return $this->redirectToRoute('trick_view', array('slug' => $slug));
-        }
+        return $this->redirectToRoute('trick_view', array('slug' => $trick));
     }
 
     /**

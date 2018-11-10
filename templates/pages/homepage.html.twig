@@ -15,6 +15,7 @@
             <div class="container">
                 <div class="row">
                 {% for trick in tricks %}
+                    {% if trick %}
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
                                 <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
@@ -31,6 +32,7 @@
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
                 {% endfor %}
                 </div>
             </div>

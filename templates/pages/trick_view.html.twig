@@ -5,36 +5,34 @@
     <h1>
         Vue des articles en solo
     </h1>
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-4 my-1">
-                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
-            </div>
-            <div class="col-md-4 my-1">
-                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
-            </div>
-            <div class="col-md-4 my-1">
-                <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+    {% if trick %}
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4 my-1">
+
+                     <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center">{{ trick.slug }}</h2><hr>
-            </div>
-            <div class="col-12 text-justify">
-                <p>{{ trick.content|nl2br }}</p>
-                <hr>
-            </div>
-            <div class="col-12">
-                Catégorie : <i>{{ trick.category }}</i>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center">{{ trick.slug }}</h2><hr>
+                </div>
+                <div class="col-12 text-justify">
+                    <p>{{ trick.content|nl2br }}</p>
+                    <hr>
+                </div>
+                <div class="col-12">
+                    Catégorie : <i>{{ trick.category }}</i>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <h1>Les commentaires</h1>
-    </div>
+        <div class="container">
+            <h1>Les commentaires</h1>
+        </div>
+    {% endif%}
 
 
 {% endblock %}
