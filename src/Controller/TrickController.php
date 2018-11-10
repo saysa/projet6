@@ -62,6 +62,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
+            $this->addFlash('success', 'Le trick à bien été modifié');
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -85,6 +86,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($trick);
             $this->em->flush();
+            $this->addFlash('success', 'Le trick à bien été ajouté');
             return $this->redirectToRoute('app_homepage');
         }
 
@@ -102,15 +104,9 @@ class TrickController extends AbstractController
      */
     public function trickDelete(Trick $trick)
     {
-        return $this->redirectToRoute('trick_view', array('slug' => $trick));
+        $this->em->remove($trick);
+        $this->em->flush();
+        $this->addFlash('success', 'Le trick à bien été supprimé');
+        return $this->redirectToRoute('app_homepage');
     }
-
-    /**
-     * @Route("/trick/edit/{slug}", name="trick_edit")
-     */
-    public function trickEdit()
-    {
-
-    }
-
 }
