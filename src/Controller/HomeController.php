@@ -10,7 +10,6 @@ namespace App\Controller;
 
 
 use App\Repository\TrickRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
