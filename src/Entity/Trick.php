@@ -55,11 +55,7 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image",cascade={"persist", "remove"})
-     * @Assert\File(
-     *     maxSize = "1500k",
-     *     mimeTypes = {"image/png", "image/jpg", "image/jpeg"},
-     *     mimeTypesMessage = "Veuillez insérer une image de type jpg, jpeg ou png"
-     * )
+     *
      */
     private $image;
 

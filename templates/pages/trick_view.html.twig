@@ -18,7 +18,10 @@
                 <h2>{{ trick.name }}</h2>
                     {% if app.user %}
                         <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
-                        <a href="{{ path('trick_delete', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button></a>
+                        <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" style="display: inline-block" onsubmit="return confirm('Supprimer le trick ?')">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                        </form>
                     {% endif %}
                 <hr>
             </div>
