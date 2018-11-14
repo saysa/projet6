@@ -3,36 +3,42 @@
 
 {% block body %}
     <h1>
-        Vue des articles en solo
+        Vu des articles en solo
     </h1>
-    {% if trick %}
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6 my-1">
+                 <img class="card-img-top" src="{{ asset(trick.image.webPath ) }}" alt="{{ asset(trick.image.alt) }}">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>{{ trick.name }}</h2>
+                    {% if app.user %}
+                        <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
+                        <a href="{{ path('trick_delete', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button></a>
+                    {% endif %}
+                <hr>
+            </div>
+            <div class="col-12 text-justify">
+                <p>{{ trick.content|nl2br }}</p>
+                <hr>
+            </div>
+            <div class="col-12">
+                Catégorie : <i>{{ trick.category.name }}</i>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <h1>Les commentaires</h1><br>
         <div class="jumbotron">
             <div class="row">
-                <div class="col-md-4 my-1">
 
-                     <img class="card-img-top" src="{{ asset(trick.imagePath ) }}" alt="Ski">
-
-                </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="text-center">{{ trick.slug }}</h2><hr>
-                </div>
-                <div class="col-12 text-justify">
-                    <p>{{ trick.content|nl2br }}</p>
-                    <hr>
-                </div>
-                <div class="col-12">
-                    Catégorie : <i>{{ trick.category }}</i>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <h1>Les commentaires</h1>
-        </div>
-    {% endif%}
+    </div>
 
 
 {% endblock %}

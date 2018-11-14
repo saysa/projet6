@@ -36,16 +36,20 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/view/{slug}", name="trick_view")
-     * @param TrickRepository $repository
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function trickView($slug)
     {
-        $trick = $this->repository->findOneBy(['slug' => $slug]);
+        $trick = $this->getDoctrine()
+            ->getRepository(Trick::class)
+            ->findTrick($slug);
+
+        $category = $trick->getCategory()->getName();
 
         return $this->render('pages/trick_view.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'category' =>$category
         ]);
     }
 
@@ -84,6 +88,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->em->persist($trick);
             $this->em->flush();
             $this->addFlash('success', 'Le trick à bien été ajouté');

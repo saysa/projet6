@@ -36,6 +36,11 @@ services:
         arguments:
             $targetDirectory: '%avatar_directory%'
 
+    App\EventListener\PasswordHashListener:
+        tags:
+        - { name: doctrine.event_listener, event: prePersist }
+
+
 
 
     # add more service definitions when explicit configuration is needed

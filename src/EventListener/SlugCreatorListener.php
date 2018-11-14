@@ -10,7 +10,7 @@ namespace App\EventListener;
 
 
 use App\Entity\Trick;
-use App\SlugCreator\SlugCreator;
+use App\Service\SlugCreator;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 class SlugCreatorListener

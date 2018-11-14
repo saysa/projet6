@@ -6,7 +6,7 @@
  * Time: 03:10
  */
 
-namespace App\SlugCreator;
+namespace App\Service;
 
 
 use App\Entity\Trick;
