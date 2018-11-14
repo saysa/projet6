@@ -42,4 +42,17 @@ class SlugCreatorListener
 
         $entity->setSlug($slug);
     }
+
+    public function preUpdate(LifecycleEventArgs $args)
+    {
+        $entity = $args->getObject();
+
+        if (!$entity instanceof Trick) {
+            return;
+        }
+
+        $slug = $this->slugCreator->createSlug($entity);
+
+        $entity->setSlug($slug);
+    }
 }

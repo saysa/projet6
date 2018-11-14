@@ -31,7 +31,7 @@ services:
     App\EventListener\SlugCreatorListener:
         tags:
         - { name: doctrine.event_listener, event: prePersist }
-        - { name: doctrine.event_listener, event: preUpload }
+        - { name: doctrine.event_listener, event: preUpdate }
 
     App\Service\FileUploader:
         arguments:
