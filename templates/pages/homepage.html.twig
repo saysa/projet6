@@ -32,7 +32,10 @@
                                             <a href="{{ path('trick_view', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Voir</button></a>
                                             {% if app.user %}
                                             <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
-                                            <a href="{{ path('trick_delete', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button></a>
+                                            <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" onsubmit="return confirm('Supprimer le trick ?')">
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                            </form>
                                             {% endif %}
                                         </div>
                                         <small class="text-muted">{{ trick.createdAt|date ('d/m/Y') }}</small>

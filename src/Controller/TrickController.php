@@ -106,12 +106,16 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/delete/{slug}", name="trick_delete")
      * @param Trick $trick
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function trickDelete(Trick $trick)
+    public function trickDelete(Trick $trick, Request $request)
     {
-        $this->em->remove($trick);
-        $this->em->flush();
+        if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
+            $this->em->remove($trick);
+            $this->em->flush();
+        }
+
         $this->addFlash('success', 'Le trick à bien été supprimé');
         return $this->redirectToRoute('app_homepage');
     }
