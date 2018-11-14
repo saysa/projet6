@@ -24,7 +24,7 @@ class TricksFixtures extends Fixture
                     Shankle veniam cow, lorem nostrud ground round bresaola andouille pork.
                     Capicola sirloin pork loin, tongue salami occaecat meatball labore voluptate nostrud cow
                     shank spare ribs. Dolore sint ullamco laborum prosciutto mollit in
-                    turkey labore meatball ut brisket.')
+                    turkey labore meatball ut brisket.');
 
             $manager->persist($trick);
         }

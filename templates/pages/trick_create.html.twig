@@ -4,7 +4,8 @@
 
 {% block body %}
     <div class="container text-center my-4">
-        <h1 class="col-8 my-4">Page de modification</h1>
+        <h1 class="col-8 my-4">Page de création</h1>
         {{ include ('pages/forms_trick.html.twig', {form: form, button: 'Créer'}) }}
+        <div class="col-md-4">{{ form_row(form.image) }}</div>
     </div>
 {% endblock %}

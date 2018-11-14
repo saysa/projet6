@@ -24,7 +24,6 @@ class TrickType extends AbstractType
             ->add('image', ImageType::class, array(
                 'label' => false,
                 'data_class' => Image::class,
-                'required' => false
             ))
             ->add('video')
         ;

@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Trick;
+use App\Form\TrickEditType;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -61,7 +62,7 @@ class TrickController extends AbstractController
      */
     public function trickDetails(Trick $trick, Request $request)
     {
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
