@@ -21,7 +21,8 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=75, unique=true)
+     * @Assert\Length(min=5, max=50)
      */
     private $username;
 
@@ -39,7 +40,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank(message="Veuillez ajouter une image à votre profil")
-     * @Assert\File(mimeTypes={ "image/png" })
+     * @Assert\File(mimeTypes={ "image/png", "image/jpg", "image/jpeg" })
      */
     private $avatar;
 

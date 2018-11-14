@@ -29,5 +29,4 @@ class HomeController extends AbstractController
             'tricks' => $tricks
         ]);
     }
-
 }

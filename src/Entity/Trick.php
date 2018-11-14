@@ -28,6 +28,7 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20)
      */
     private $content;
 
@@ -38,6 +39,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message = "Votre url '{{ value }}' n'est pas valide !",)
      */
     private $video;
 
@@ -53,6 +55,11 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image",cascade={"persist", "remove"})
+     * @Assert\File(
+     *     maxSize = "1500k",
+     *     mimeTypes = {"image/png", "image/jpg", "image/jpeg"},
+     *     mimeTypesMessage = "Veuillez insérer une image de type jpg, jpeg ou png"
+     * )
      */
     private $image;
 
