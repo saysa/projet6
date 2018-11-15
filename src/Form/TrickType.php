@@ -7,7 +7,6 @@ use App\Entity\Image;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,7 +27,8 @@ class TrickType extends AbstractType
                 'data_class' => Image::class,
                 'help' => 'Ajoutez une super image'
             ))
-            ->add('video', UrlType::class, array(
+            ->add('video', VideoType::class, array(
+                'label' => false,
                 'help' => 'Url sous forme youtube.com/embed/...',
                 'required' => true
             ))

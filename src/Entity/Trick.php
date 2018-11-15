@@ -40,12 +40,6 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url(message = "Votre url '{{ value }}' n'est pas valide !",)
-     */
-    private $video;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -65,6 +59,11 @@ class Trick
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick")
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist", "remove"})
+     */
+    private $video;
 
 
     public function __construct()
@@ -128,18 +127,6 @@ class Trick
         return $this;
     }
 
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(?string $video): self
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -190,6 +177,23 @@ class Trick
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getVideo(): ?Video
+    {
+        return $this->video;
+    }
+
+    public function setVideo(Video $video): self
+    {
+        $this->video = $video;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $video->getTrick()) {
+            $video->setTrick($this);
         }
 
         return $this;
