@@ -37,5 +37,4 @@ class CommentRepository extends ServiceEntityRepository
 
         return new Paginator($query, $fetchJoinCollection = true);
     }
-
 }
