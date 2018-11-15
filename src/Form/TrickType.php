@@ -19,13 +19,19 @@ class TrickType extends AbstractType
             ->add('content')
             ->add('category', EntityType::class, array(
                 'class' => Category::class,
-                'choice_label'=> 'name'
+                'choice_label'=> 'name',
+                'help' => 'Choisissez la catégorie'
             ))
             ->add('image', ImageType::class, array(
                 'label' => false,
                 'data_class' => Image::class,
+                'help' => 'Ajoutez une super image'
             ))
-            ->add('video')
+            ->add('video', VideoType::class, array(
+                'label' => false,
+                'help' => 'Url sous forme youtube.com/embed/...',
+                'required' => true
+            ))
         ;
     }
 

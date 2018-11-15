@@ -6,10 +6,15 @@
 <div class="container">
     <form method="post">
         <div class="row justify-content-center">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
             <h1 class="h3 mb-3 justify-content-center">Se connecter</h1>
+            <br>
+        </div>
+        <div class="row justify-content-center">
+            {% if error %}
+                <div class="col-md-4">
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                </div>
+            {% endif %}
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4 my-4">

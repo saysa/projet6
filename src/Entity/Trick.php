@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,12 +40,6 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url(message = "Votre url '{{ value }}' n'est pas valide !",)
-     */
-    private $video;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -59,11 +55,22 @@ class Trick
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist", "remove"})
+     */
+    private $video;
+
 
     public function __construct()
     {
         $this->createdAt = new  \DateTime();
         $this->image = new Image();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,18 +127,6 @@ class Trick
         return $this;
     }
 
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(?string $video): self
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -152,6 +147,54 @@ class Trick
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getVideo(): ?Video
+    {
+        return $this->video;
+    }
+
+    public function setVideo(Video $video): self
+    {
+        $this->video = $video;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $video->getTrick()) {
+            $video->setTrick($this);
+        }
 
         return $this;
     }

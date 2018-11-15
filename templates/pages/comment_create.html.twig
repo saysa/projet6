@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Poster un comm ! {% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <div class="jumbotron">
+            <h1>Article que vous allez commenter</h1>
+            <hr>
+            <h3>{{ trick.name }}</h3>
+            <p class="lead">{{ trick.content|raw }}</p>
+            <hr>
+            <i>Catégorie : {{ trick.category.name }}</i>
+        </div>
+    </div>
+    <div class="container col-md-4 my-4">
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+        <button class="btn btn-primary">{{ button|default('Poster') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+

@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Form\TrickEditType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,17 +41,19 @@ class TrickController extends AbstractController
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function trickView($slug)
+    public function trickView($slug, CommentRepository $commentRepository)
     {
         $trick = $this->getDoctrine()
             ->getRepository(Trick::class)
-            ->findTrick($slug);
+            ->findTricK($slug);
 
         $category = $trick->getCategory()->getName();
+        $comments = $commentRepository->findCommentById($trick);
 
         return $this->render('pages/trick_view.html.twig', [
             'trick' => $trick,
-            'category' =>$category
+            'category' => $category,
+            'comments' => $comments
         ]);
     }
 

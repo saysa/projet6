@@ -35,6 +35,5 @@ class TrickRepository extends ServiceEntityRepository
         } catch (NonUniqueResultException $e) {
             return new \Exception('Pas de trick avec ce nom');
         }
-
     }
 }

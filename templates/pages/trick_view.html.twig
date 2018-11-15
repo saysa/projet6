@@ -2,13 +2,13 @@
 {% block title %}Vue du trick{% endblock %}
 
 {% block body %}
-    <h1>
-        Vu des articles en solo
-    </h1>
-    <div class="jumbotron">
+    <div class="jumbotron mt-1">
         <div class="row">
             <div class="col-md-6 my-1 text-center">
                  <img class="img-thumbnail" src="{{ asset(trick.image.webPath ) }}" alt="{{ asset(trick.image.alt) }}">
+            </div>
+            <div class="col-md-6 my-1 container embed-responsive embed-responsive-21by9">
+                <iframe class="embed-responsive-item"  src="{{ trick.video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -22,6 +22,7 @@
                             <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
                             <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
                         </form>
+                        <a href="{{ path('create_comment', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Commenter</button></a>
                     {% endif %}
                 <hr>
             </div>
@@ -34,11 +35,26 @@
             </div>
         </div>
     </div>
-    <div class="container mb-5">
-        <h1>Les commentaires</h1><br>
+    <div class="container my-5 py-5">
+        <h3>Commentaires ({{ comments|length }})</h3>
+        <br>
         <div class="jumbotron">
-            <div class="row">
-            </div>
+            {% if comments %}
+            {% for comment in comments %}
+                <div class="row">
+                    <img class="comment-img rounded-circle" src="{{ asset(comment.user.avatarPath) }}" height="61">
+                    <div class="comment-container d-inline-block pl-3 align-top">
+                        <span><strong>{{ comment.user.username }}</strong></span>
+                        <br>
+                        <span>{{ comment.content }}</span>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            {% endif %}
+            {% if not comments  %}
+                <p>Pas de commentaires, soyez le premier à poster !</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
