@@ -2,13 +2,13 @@
 {% block title %}Vue du trick{% endblock %}
 
 {% block body %}
-    <h1>
-        Vu des articles en solo
-    </h1>
-    <div class="jumbotron">
+    <div class="jumbotron mt-1">
         <div class="row">
             <div class="col-md-6 my-1 text-center">
                  <img class="img-thumbnail" src="{{ asset(trick.image.webPath ) }}" alt="{{ asset(trick.image.alt) }}">
+            </div>
+            <div class="col-md-6 my-1 embed-responsive">
+                <iframe width="1519" height="554" src="{{ trick.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                             <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
                             <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
                         </form>
-                        <a href="{{ path('create_comment', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Comment</button></a>
+                        <a href="{{ path('create_comment', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Commenter</button></a>
                     {% endif %}
                 <hr>
             </div>

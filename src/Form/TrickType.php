@@ -29,7 +29,8 @@ class TrickType extends AbstractType
                 'help' => 'Ajoutez une super image'
             ))
             ->add('video', UrlType::class, array(
-                'help' => 'Rajoutez un lien url pour la vidéo',
+                'help' => 'Url sous forme youtube.com/embed/...',
+                'required' => true
             ))
         ;
     }
