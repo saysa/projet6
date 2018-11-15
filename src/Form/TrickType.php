@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,13 +20,17 @@ class TrickType extends AbstractType
             ->add('content')
             ->add('category', EntityType::class, array(
                 'class' => Category::class,
-                'choice_label'=> 'name'
+                'choice_label'=> 'name',
+                'help' => 'Choisissez la catégorie'
             ))
             ->add('image', ImageType::class, array(
                 'label' => false,
                 'data_class' => Image::class,
+                'help' => 'Ajoutez une super image'
             ))
-            ->add('video')
+            ->add('video', UrlType::class, array(
+                'help' => 'Rajoutez un lien url pour la vidéo',
+            ))
         ;
     }
 
