@@ -21,21 +21,20 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {% if not app.user %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('login') }}">Se connecter <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('register_user') }}">S'enregistrer<span class="sr-only">(current)</span></a>
-                    </li>
-                    {% endif %}
-                    {% if app.user %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('logout') }}">Déconnection<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('trick_create') }}">Créer un trick<span class="sr-only">(current)</span></a>
-                    </li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('logout') }}">Déconnection<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('trick_create') }}">Créer un trick<span class="sr-only">(current)</span></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('login') }}">Se connecter <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('register_user') }}">S'enregistrer<span class="sr-only">(current)</span></a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>

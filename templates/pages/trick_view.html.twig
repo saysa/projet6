@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h2>{{ trick.name }}</h2>
-                    {% if app.user %}
+                    {% if is_granted('ROLE_USER') %}
                         <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
                         <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" style="display: inline-block" onsubmit="return confirm('Supprimer le trick ?')">
                             <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
