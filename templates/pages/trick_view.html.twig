@@ -5,7 +5,7 @@
     <div class="jumbotron mt-1">
         <div class="row">
             <div class="col-md-6 my-1 text-center">
-                 <img class="img-thumbnail" src="{{ asset(trick.image.webPath ) }}" alt="{{ asset(trick.image.alt) }}">
+                 <img class="img-thumbnail" src="{{ asset(trick.image.webPath ) }}" alt="{{ trick.image.alt }}">
             </div>
             <div class="col-md-6 my-1 container embed-responsive embed-responsive-21by9">
                 <iframe class="embed-responsive-item"  src="{{ trick.video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

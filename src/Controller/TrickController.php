@@ -50,11 +50,9 @@ class TrickController extends AbstractController
             ->getRepository(Trick::class)
             ->findTricK($slug);
 
-        $nbPerPage = 10;
-
         $category = $trick->getCategory()->getName();
-        $comments = $commentRepository->findCommentById($trick, $page, $nbPerPage);
-        $nbPages = ceil(count($comments) / $nbPerPage);
+        $comments = $commentRepository->findCommentById($trick, $page, 10);
+        $nbPages = ceil(count($comments) / 10);
 
 
         return $this->render('pages/trick_view.html.twig', [
