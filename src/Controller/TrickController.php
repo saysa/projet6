@@ -15,6 +15,7 @@ use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,6 +71,7 @@ class TrickController extends AbstractController
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @IsGranted("ROLE_USER")
      */
     public function trickDetails(Trick $trick, Request $request)
     {
@@ -92,6 +94,7 @@ class TrickController extends AbstractController
      * @Route("/trick/new", name="trick_create")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @IsGranted("ROLE_USER")
      */
     public function createTrick(Request $request)
     {
@@ -119,6 +122,7 @@ class TrickController extends AbstractController
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @IsGranted("ROLE_USER")
      */
     public function trickDelete(Trick $trick, Request $request)
     {
