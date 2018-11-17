@@ -18,12 +18,12 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $ext;
 
     /**
-     * @ORM\Column(name="alt", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $alt;
 
