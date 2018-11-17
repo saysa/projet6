@@ -2,20 +2,26 @@
 {% block title %}Poster un comm ! {% endblock %}
 
 {% block body %}
-    <div class="container my-4">
-        <div class="jumbotron">
-            <h1>Article que vous allez commenter</h1>
-            <hr>
-            <h3>{{ trick.name }}</h3>
-            <p class="lead">{{ trick.content|raw }}</p>
-            <hr>
-            <i>Catégorie : {{ trick.category.name }}</i>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>{{ trick.name }}</h2>
+                <hr>
+            </div>
+            <div class="col-12 text-justify">
+                <p>{{ trick.content|nl2br }}</p>
+                <hr>
+            </div>
+            <div class="col-12">
+                Catégorie : <i>{{ trick.category.name }}</i>
+            </div>
         </div>
     </div>
-    <div class="container col-md-4 my-4">
+    <div class="container col-md-4 my-4 py-4">
         {{ form_start(form) }}
             {{ form_rest(form) }}
         <button class="btn btn-primary">{{ button|default('Poster') }}</button>
-        {{ form_end(form) }}
+        {{ form_end(form) }}<br>
+        <a href="{{ path('trick_view', {slug: trick.slug}) }}"><button class="btn btn btn-secondary">Retour à l'article</button></a>
     </div>
 {% endblock %}

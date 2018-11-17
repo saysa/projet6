@@ -2,7 +2,7 @@
 Projet 6 complet de la formation PHP/Symfony d'OpenClassroom
 
 # Installation
-##1. Récupération du projet
+## 1. Récupération du projet
 Récuperez ce projet et installez suivant le besoin, comme le répertoire www
 de wamp.
 
