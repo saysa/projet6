@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Entity\Comment;
+use App\Factory\CommentFactory;
 use App\Form\CommentType;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,9 +30,10 @@ class CommentController extends AbstractController
      * @param ObjectManager $objectManager
      * @param $slug
      * @param TrickRepository $repository
+     * @param CommentFactory $commentFactory
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function createComment(Request $request, ObjectManager $objectManager, $slug, TrickRepository $repository)
+    public function createComment(Request $request, ObjectManager $objectManager, $slug, TrickRepository $repository, CommentFactory $commentFactory)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -39,8 +41,7 @@ class CommentController extends AbstractController
         $trick = $repository->findTrick($slug);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUser($this->getUser());
-            $comment->setTrick($trick);
+            $comment = $commentFactory->createAndSaveComment($comment, $trick, $this->getUser());
             $objectManager->persist($comment);
             $objectManager->flush();
             $this->addFlash('success', 'Votre commentaire à été posté !');
