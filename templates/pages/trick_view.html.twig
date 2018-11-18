@@ -43,18 +43,18 @@
     <div class="container my-5 py-5">
         <h3>Commentaires ({{ comments|length }})</h3>
         <br>
-        <div class="jumbotron">
+        <div class="my-1 p-1 bg-white rounded box-shadow">
             {% if comments|length > 0 %}
             {% for comment in comments %}
-                <div class="row">
-                    <img class="comment-img rounded-circle" src="{{ asset(comment.user.avatarPath) }}" height="61">
-                    <div class="comment-container d-inline-block pl-3 align-top">
-                        <span><strong>{{ comment.user.username }}</strong> Posté le : {{ comment.createdAt|date ('d/m/Y') }} à {{ comment.createdAt|date ('h:i:s') }}</span>
-                        <br>
-                        <span>{{ comment.content }}</span>
+                <div class="media text-muted pt-1">
+                    <img src="{{ asset(comment.user.avatarPath) }}" alt="" class="mr-2 rounded" height="32">
+                    <div class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <strong class="text-gray-dark">{{ comment.user.username }}</strong>
+                        </div>
+                        <span class="d-block">{{ comment.content }}</span>
                     </div>
                 </div>
-                <hr>
             {% endfor %}
                 <ul class="pagination">
                     {% for p in range(1, nbPages) %}
@@ -64,7 +64,6 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-
             {% if comments|length <= 0  %}
                 <p>Pas de commentaires, soyez le premier à poster !</p>
             {% endif %}
