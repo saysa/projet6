@@ -49,7 +49,7 @@
                 <div class="row">
                     <img class="comment-img rounded-circle" src="{{ asset(comment.user.avatarPath) }}" height="61">
                     <div class="comment-container d-inline-block pl-3 align-top">
-                        <span><strong>{{ comment.user.username }}</strong></span>
+                        <span><strong>{{ comment.user.username }}</strong> Posté le : {{ comment.createdAt|date ('d/m/Y') }} à {{ comment.createdAt|date ('h:i:s') }}</span>
                         <br>
                         <span>{{ comment.content }}</span>
                     </div>

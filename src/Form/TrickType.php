@@ -30,7 +30,7 @@ class TrickType extends AbstractType
             ->add('video', VideoType::class, array(
                 'label' => false,
                 'help' => 'Url sous forme youtube.com/embed/...',
-                'required' => true
+                'required' => true,
             ))
         ;
     }

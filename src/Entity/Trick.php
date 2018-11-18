@@ -25,6 +25,7 @@ class Trick
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\Length(min=5, max=30)
+     *
      */
     private $name;
 
@@ -35,7 +36,7 @@ class Trick
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=70)
      */
     private $slug;
 
@@ -56,12 +57,14 @@ class Trick
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick",cascade={"remove"})
      */
     private $comments;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     *
      */
     private $video;
 
@@ -173,7 +176,6 @@ class Trick
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
             }
@@ -187,11 +189,11 @@ class Trick
         return $this->video;
     }
 
+
     public function setVideo(Video $video): self
     {
         $this->video = $video;
 
-        // set the owning side of the relation if necessary
         if ($this !== $video->getTrick()) {
             $video->setTrick($this);
         }
