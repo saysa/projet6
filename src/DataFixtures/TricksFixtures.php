@@ -559,7 +559,7 @@ Le plus simple pour apprendre reste de se lancer, donc je vous conseille d’ess
             ->setUser($user2);
 
         $comment9 = new Comment();
-        $comment9->setContent('Vous avez des astuces pour que je perde moins de temps à être à l\aise avec ?')
+        $comment9->setContent('Vous avez des astuces pour que je perde moins de temps à être à l\'aise avec ?')
             ->setTrick($trick)
             ->setUser($user1);
 
