@@ -23,5 +23,4 @@ class CommentFactory
 
         return $comment;
     }
-
 }
