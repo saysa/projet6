@@ -41,7 +41,7 @@ class CommentController extends AbstractController
         $trick = $repository->findTrick($slug);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment = $commentFactory->createAndSaveComment($comment, $trick, $this->getUser());
+            $comment = $commentFactory->linkTrickAndUserToComment($comment, $trick, $this->getUser());
             $objectManager->persist($comment);
             $objectManager->flush();
             $this->addFlash('success', 'Votre commentaire à été posté !');

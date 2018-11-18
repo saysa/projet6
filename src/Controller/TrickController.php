@@ -46,9 +46,7 @@ class TrickController extends AbstractController
      */
     public function trickView($slug, CommentRepository $commentRepository, $page)
     {
-        $trick = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->findTricK($slug);
+        $trick = $this->repository->findTricK($slug);
 
         $category = $trick->getCategory()->getName();
         $comments = $commentRepository->findCommentById($trick, $page, 10);

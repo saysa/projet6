@@ -10,25 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
-    /**
      * @var ObjectManager
      */
-    private $em;
+    private $om;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, ObjectManager $em)
+    public function __construct(ObjectManager $om)
     {
-
-        $this->passwordEncoder = $passwordEncoder;
-        $this->em = $em;
+        $this->om = $om;
     }
 
     /**
@@ -65,8 +58,8 @@ class SecurityController extends AbstractController
             $fileName = $fileUploader->upload($file);
 
             $user->setAvatar($fileName);
-            $this->em->persist($user);
-            $this->em->flush();
+            $this->om->persist($user);
+            $this->om->flush();
             $this->addFlash('success', 'Vous êtes bien enregistré');
             return $this->redirectToRoute('app_homepage');
         }

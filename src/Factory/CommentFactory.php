@@ -16,7 +16,13 @@ use App\Entity\User;
 class CommentFactory
 {
 
-    public function createAndSaveComment(Comment $comment,Trick $trick, User $user)
+    /**
+     * @param Comment $comment
+     * @param Trick $trick
+     * @param User $user
+     * @return Comment
+     */
+    public function linkTrickAndUserToComment(Comment $comment, Trick $trick, User $user)
     {
         $comment->setUser($user);
         $comment->setTrick($trick);
