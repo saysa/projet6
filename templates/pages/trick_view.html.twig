@@ -2,6 +2,11 @@
 {% block title %}Vue du trick{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-md-center ">
+            <i class="col col-md-4 alert alert-success text-center">{{ message }}</i>
+        </div>
+    {%  endfor %}
     <div class="jumbotron mt-1">
         <div class="row">
             <div class="col-md-6 my-1 text-center">
@@ -44,7 +49,7 @@
                 <div class="row">
                     <img class="comment-img rounded-circle" src="{{ asset(comment.user.avatarPath) }}" height="61">
                     <div class="comment-container d-inline-block pl-3 align-top">
-                        <span><strong>{{ comment.user.username }}</strong></span>
+                        <span><strong>{{ comment.user.username }}</strong> Posté le : {{ comment.createdAt|date ('d/m/Y') }} à {{ comment.createdAt|date ('h:i:s') }}</span>
                         <br>
                         <span>{{ comment.content }}</span>
                     </div>
@@ -53,8 +58,8 @@
             {% endfor %}
                 <ul class="pagination">
                     {% for p in range(1, nbPages) %}
-                        <li{% if p == page %} class="active"{% endif %}>
-                            <a href="{{ path('trick_view', {'page': p, 'slug': trick.slug}) }}">{{ p }}</a>
+                        <li{% if p == page %} class="page-item active"{% endif %}>
+                            <a class="page-link" href="{{ path('trick_view', {'page': p, 'slug': trick.slug}) }}">{{ p }}</a>
                         </li>
                     {% endfor %}
                 </ul>

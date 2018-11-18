@@ -27,7 +27,7 @@ class CommentRepository extends ServiceEntityRepository
             ->addSelect('u')
             ->andWhere('c.trick = :id')
             ->setParameter('id', $id)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
         ;
 

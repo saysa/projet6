@@ -45,7 +45,7 @@ class CommentController extends AbstractController
             $objectManager->persist($comment);
             $objectManager->flush();
             $this->addFlash('success', 'Votre commentaire à été posté !');
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('trick_view', array('slug' => $slug));
         }
 
         return $this->render('pages/comment_create.html.twig', [
