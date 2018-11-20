@@ -14,7 +14,7 @@ use App\Form\TrickEditType;
 use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,14 +27,14 @@ class TrickController extends AbstractController
      */
     private $repository;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
 
-    public function __construct(TrickRepository $repository, ObjectManager $em)
+    public function __construct(TrickRepository $repository, EntityManagerInterface $entityManager)
     {
         $this->repository = $repository;
-        $this->em = $em;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -75,7 +75,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $this->entityManager->flush();
             $this->addFlash('success', 'Le trick à bien été modifié');
             return $this->redirectToRoute('app_homepage');
         }
@@ -100,8 +100,8 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->em->persist($trick);
-            $this->em->flush();
+            $this->entityManager->persist($trick);
+            $this->entityManager->flush();
             $this->addFlash('success', 'Le trick à bien été ajouté');
             return $this->redirectToRoute('app_homepage');
         }
@@ -123,8 +123,8 @@ class TrickController extends AbstractController
     public function trickDelete(Trick $trick, Request $request)
     {
         if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
-            $this->em->remove($trick);
-            $this->em->flush();
+            $this->entityManager->remove($trick);
+            $this->entityManager->flush();
         }
 
         $this->addFlash('success', 'Le trick à bien été supprimé');

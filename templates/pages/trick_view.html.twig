@@ -23,8 +23,8 @@
                 <h2>{{ trick.name }}</h2>
                     {% if is_granted('ROLE_USER') %}
                         <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
-                        <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" style="display: inline-block" onsubmit="return confirm('Supprimer le trick ?')">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-trash-alt"></i></button>
+                        <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" style="display: inline-block">
+                            {{ include ('pages/modal_delete.html.twig') }}
                             <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
                         </form>
                         <a href="{{ path('create_comment', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Commenter</button></a>

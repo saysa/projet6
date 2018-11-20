@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\FileUploader;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +14,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @var ObjectManager
-     */
-    private $om;
 
-    public function __construct(ObjectManager $om)
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->om = $om;
+
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -58,8 +61,8 @@ class SecurityController extends AbstractController
             $fileName = $fileUploader->upload($file);
 
             $user->setAvatar($fileName);
-            $this->om->persist($user);
-            $this->om->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
             $this->addFlash('success', 'Vous êtes bien enregistré');
             return $this->redirectToRoute('app_homepage');
         }
