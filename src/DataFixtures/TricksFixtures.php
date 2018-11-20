@@ -2,17 +2,17 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Entity\Video;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TricksFixtures extends Fixture
+class TricksFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -43,34 +43,6 @@ class TricksFixtures extends Fixture
         $manager->persist($user);
         $manager->persist($user1);
         $manager->persist($user2);
-
-        /***************
-         *
-         * CATEGORIES
-         *
-         **************/
-
-
-        $category = new Category();
-        $category->setName('Grab');
-        $manager->persist($category);
-
-        $category1 = new Category();
-        $category1->setName('Rotation');
-        $manager->persist($category1);
-
-        $category2 = new Category();
-        $category2->setName('Flip');
-        $manager->persist($category2);
-
-        $category3 = new Category();
-        $category3->setName('Slide');
-        $manager->persist($category3);
-
-        $category4 = new Category();
-        $category4->setName('Switch');
-        $manager->persist($category4);
-
 
         /*************
          *
@@ -262,7 +234,7 @@ un peu pour la ralentir, soit en se regroupant encore davantage pour tourner plu
 Replacez bien la board sous votre corps avant d’atterrir, et amortir en pliant les jambes
 Amusez vous bien avec ce tricks, et attention : plus le kicker est gros plus il faut envoyer le mouvement doucement...')
             ->setImage($image)
-            ->setCategory($category2)
+            ->setCategory($this->getReference('Flip2'))
             ->setVideo($video);
 
         $trick1 = new Trick();
@@ -298,7 +270,7 @@ Du coup, sans en avoir conscience, les  épaules ont fait quelques degrés de pl
 ce qui déséquilibre la réception, et souvent on tombe sur le cul. Donc réception en appuie sur les deux pieds, 
 en regardant ses pieds, on ne relève la tête qu’une fois que l’on a bien amorti.')
             ->setImage($image1)
-            ->setCategory($category2)
+            ->setCategory($this->getReference('Flip2'))
             ->setVideo($video1);
 
         $trick2 = new Trick();
@@ -327,7 +299,7 @@ l’atterrissage et de bien repérer le terrain et les autres rideurs pour ne pa
 qui est à notre avis un de plus beaux tricks du snowboard…
 ')
             ->setImage($image2)
-            ->setCategory($category3)
+            ->setCategory($this->getReference('Slide3'))
             ->setVideo($video2);
 
         $trick3 = new Trick();
@@ -356,7 +328,7 @@ de bord de piste. Quand on se sent vraiment  à l’aise, on peut commencer à e
 (kickers de snowpark par exemple). Ne pas hésiter à être créatif, repérer toute variation de terrain qui peut être un 
 bon spot pour envoyer un ollie, et transformer la montagne en terrain de jeu…')
             ->setImage($image3)
-            ->setCategory($category)
+            ->setCategory($this->getReference('Grab0'))
             ->setVideo($video3);
 
         $trick4 = new Trick();
@@ -383,7 +355,7 @@ Il faut aller chercher la rotation du regard par dessus l’épaule avant, on l�
 
 Pour atterrir, il faut ramener le bas du corps dans l’axe de la réception en se regroupant si on a besoin d’accélérer le mouvement. On détend ses jambes pour aller chercher la réception puis amortir sur les deux jambes au contact du sol. Les épaules doivent être dans l’axe de la board ou légèrement en retard pour arrêter la rotation, surtout si on sent que l’on tournait trop vite, ça évite la sur-rotation. Regardez devant vous.')
             ->setImage($image4)
-            ->setCategory($category2)
+            ->setCategory($this->getReference('Flip2'))
             ->setVideo($video4);
 
         $trick5 = new Trick();
@@ -407,7 +379,7 @@ Il faut aller chercher la rotation du regard par dessus l’épaule avant. On ap
 
 Pour atterrir, il faut ramener le bas du corps dans l’axe de la réception en se regroupant si on a besoin d’accélérer le mouvement. On détend ses jambes pour aller chercher la réception puis amortir sur les deux jambes au contact du sol. Les épaules doivent être dans l’axe de la board ou légèrement en retard pour arrêter la rotation, surtout si on sent que l’on tournait trop vite, ça évite la sur-rotation. Regardez devant vous une fois que vous avez fini d’amortir.')
             ->setImage($image5)
-            ->setCategory($category4)
+            ->setCategory($this->getReference('Switch4'))
             ->setVideo($video5);
 
         $trick6 = new Trick();
@@ -432,7 +404,7 @@ On verra en détails certains tricks dans des prochain tutos, dans celui-ci le b
 N’oublions pas que le snowboard c’est juste pour le fun, il ne faut pas hésiter à aller s\'amuser en shreddant ou bon nous semble, sur les pistes autant que dans un jardin ou en ville, tant qu’il y a un bout de neige et de la motivation, ça sera une bonne session.
 ')
             ->setImage($image6)
-            ->setCategory($category3)
+            ->setCategory($this->getReference('Slide3'))
             ->setVideo($video6);
 
         $trick7 = new Trick();
@@ -456,7 +428,7 @@ Tail grab : La main arrière grabbe le tail (la spatule arrière).
 
 Attention aux zones dites de grabs interdits qui se trouvent entre les spatules et les fixations, il faut avoir beaucoup de style pour s’y risquer et que ça soit joli, un peu comme Shaun White avec ses grabs de boots et de fixations...')
             ->setImage($image7)
-            ->setCategory($category)
+            ->setCategory($this->getReference('Grab0'))
             ->setVideo($video7);
 
         $trick8 = new Trick();
@@ -476,7 +448,7 @@ Une petite variante en faisant d’abord un simple 180 en sortie permettra de se
 Et n’oublie pas, internaute anxieux, « persévérance est mère de récompense ».
 ')
             ->setImage($image8)
-            ->setCategory($category1)
+            ->setCategory($this->getReference('Rotation1'))
             ->setVideo($video8);
 
         $trick9 = new Trick();
@@ -492,7 +464,7 @@ Et enfin, comme pour la plupart des tricks, on vient chercher la réception avec
 Le plus simple pour apprendre reste de se lancer, donc je vous conseille d’essayer, vous allez voir c’est pas si dur !
 ')
             ->setImage($image9)
-            ->setCategory($category2)
+            ->setCategory($this->getReference('Switch4'))
             ->setVideo($video9);
 
         $manager->persist($trick);
@@ -587,5 +559,10 @@ Le plus simple pour apprendre reste de se lancer, donc je vous conseille d’ess
         $manager->persist($comment11);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array('DataFixtures\CommentFixtures');
     }
 }
