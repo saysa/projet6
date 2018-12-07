@@ -9,15 +9,10 @@
 namespace App\Controller;
 
 
-use App\Entity\Trick;
-use App\Form\TrickEditType;
-use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
@@ -60,74 +55,5 @@ class TrickController extends AbstractController
             'nbPages'     => $nbPages,
             'page'        => $page,
         ]);
-    }
-
-    /**
-     * @Route("/trick/edit/{slug}", name="trick_details")
-     * @param Trick $trick
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @IsGranted("ROLE_USER")
-     */
-    public function trickDetails(Trick $trick, Request $request)
-    {
-        $form = $this->createForm(TrickEditType::class, $trick);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-            $this->addFlash('success', 'Le trick à bien été modifié');
-            return $this->redirectToRoute('app_homepage');
-        }
-
-        return $this->render('pages/trick_details.html.twig', [
-            'trick' => $trick,
-            'form' => $form->createView()
-            ]);
-    }
-
-    /**
-     * @Route("/trick/new", name="trick_create")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @IsGranted("ROLE_USER")
-     */
-    public function createTrick(Request $request)
-    {
-        $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
-            $this->addFlash('success', 'Le trick à bien été ajouté');
-            return $this->redirectToRoute('app_homepage');
-        }
-
-        return $this->render('pages/trick_create.html.twig', [
-            'trick' => $trick,
-            'form' => $form->createView()
-        ]);
-
-    }
-
-    /**
-     * @Route("/trick/delete/{slug}", name="trick_delete")
-     * @param Trick $trick
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @IsGranted("ROLE_USER")
-     */
-    public function trickDelete(Trick $trick, Request $request)
-    {
-        if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
-            $this->entityManager->remove($trick);
-            $this->entityManager->flush();
-        }
-
-        $this->addFlash('success', 'Le trick à bien été supprimé');
-        return $this->redirectToRoute('app_homepage');
     }
 }
