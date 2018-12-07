@@ -16,16 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/{page<\d+>?1}", name="app_homepage")
      * @param TrickRepository $repository
+     * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepage(TrickRepository $repository)
+    public function homepage(TrickRepository $repository, $page)
     {
-        $tricks = $repository->findBy([], ['id' => 'DESC']);
+        $tricks = $repository->findTrickForPagination($page, 6);
+        $nbPages = ceil(count($tricks) / 6);
 
         return $this->render('pages/homepage.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'nbPages'     => $nbPages,
+            'page'        => $page,
         ]);
     }
 }

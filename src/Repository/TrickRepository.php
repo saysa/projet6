@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -35,5 +36,19 @@ class TrickRepository extends ServiceEntityRepository
         } catch (NonUniqueResultException $e) {
             return new \Exception('Pas de trick avec ce nom');
         }
+    }
+
+    public function findTrickForPagination($page, $nbPerPage)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+        ;
+
+        $query->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, $fetchJoinCollection = true);
     }
 }

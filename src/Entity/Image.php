@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
@@ -143,6 +144,7 @@ class Image
 
     /**
      * @return UploadedFile
+     *
      */
     public function getFile()
     {
@@ -151,6 +153,7 @@ class Image
 
     /**
      * @param UploadedFile $file
+     *
      */
     public function setFile(UploadedFile $file)
     {

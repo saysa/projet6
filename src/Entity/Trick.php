@@ -52,7 +52,6 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image",cascade={"persist", "remove"})
-     *
      */
     private $image;
 
