@@ -32,9 +32,11 @@
                                             <a href="{{ path('trick_view', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-primary">Voir</button></a>
                                             {% if app.user %}
                                             <a href="{{ path('trick_details', {slug: trick.slug}) }}"><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-pencil-alt"></i></button></a>
-                                            <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}">
-                                                {{ include ('pages/modal_delete.html.twig') }}
+                                            <form method="post" action="{{ path('trick_delete', {slug: trick.slug}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous sur ?')">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
                                             </form>
                                             {% endif %}
                                         </div>

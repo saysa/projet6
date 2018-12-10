@@ -13,6 +13,7 @@ class TricksFixtures extends AbstractFixture implements DependentFixtureInterfac
     {
         $trick = new Trick();
         $trick->setName('Backflip')
+            ->setSlug('Backflip')
             ->setContent('Le fameux Backflip, un trick très fun et facile à maitriser que l’on peut placer à beaucoup d’endroits. 
 On peut aussi l’appeler rodéo back 3.6 si on le tourne un peu sur le côté, mais c’est le même mouvement.
 Le mieux c’est de s’entrainer à le faire sur un trampoline car le mouvement est le même.
@@ -33,11 +34,11 @@ un peu pour la ralentir, soit en se regroupant encore davantage pour tourner plu
 Replacez bien la board sous votre corps avant d’atterrir, et amortir en pliant les jambes
 Amusez vous bien avec ce tricks, et attention : plus le kicker est gros plus il faut envoyer le mouvement doucement...')
             ->setImage($this->getReference('image'))
-            ->setCategory($this->getReference('Flip2'))
-            ->setVideo($this->getReference('video'));
+            ->setCategory($this->getReference('Flip2'));
 
         $trick1 = new Trick();
         $trick1->setName('Frontside 720')
+            ->setSlug('Frontside-720')
             ->setContent('Lorsque l’on pense essayer ce tricks, c’est que l’on maitrise déjà très bien le 3.6 et le 5.4 front,
 n\'hésitez pas à aller réviser ces classiques dans les tutos précédents.
 Le Frontside 7, comment ça marche :
@@ -69,11 +70,11 @@ Du coup, sans en avoir conscience, les  épaules ont fait quelques degrés de pl
 ce qui déséquilibre la réception, et souvent on tombe sur le cul. Donc réception en appuie sur les deux pieds, 
 en regardant ses pieds, on ne relève la tête qu’une fois que l’on a bien amorti.')
             ->setImage($this->getReference('image1'))
-            ->setCategory($this->getReference('Flip2'))
-            ->setVideo($this->getReference('video1'));
+            ->setCategory($this->getReference('Flip2'));
 
         $trick2 = new Trick();
         $trick2->setName('backside 180')
+            ->setSlug('backside-180')
             ->setContent('Pour les néophytes, le backside 180 ou 180 back est un saut avec un demi tour qui s\'effectue
 côté pointes de pieds en envoyant les épaules dos à la pente lors de la rotation, ce qui fait qu\'à l’atterrissage 
 on se retrouve en marche arrière. Comme dans toute rotation l’important est la synchronisation entre l’impulsion et la rotation des épaules.
@@ -98,11 +99,11 @@ l’atterrissage et de bien repérer le terrain et les autres rideurs pour ne pa
 qui est à notre avis un de plus beaux tricks du snowboard…
 ')
             ->setImage($this->getReference('image2'))
-            ->setCategory($this->getReference('Slide3'))
-            ->setVideo($this->getReference('video2'));
+            ->setCategory($this->getReference('Slide3'));
 
         $trick3 = new Trick();
         $trick3->setName('un ollie en snowboard')
+            ->setSlug('un-ollie-en-snowboard')
             ->setContent('Le Ollie est une impulsion  avec déformation de la planche qui permet de faire un saut, 
 comme un ollie de skate, mais en beaucoup plus facile car les deux pieds sont attachés sur la board.
 
@@ -127,11 +128,11 @@ de bord de piste. Quand on se sent vraiment  à l’aise, on peut commencer à e
 (kickers de snowpark par exemple). Ne pas hésiter à être créatif, repérer toute variation de terrain qui peut être un 
 bon spot pour envoyer un ollie, et transformer la montagne en terrain de jeu…')
             ->setImage($this->getReference('image3'))
-            ->setCategory($this->getReference('Grab0'))
-            ->setVideo($this->getReference('video3'));
+            ->setCategory($this->getReference('Grab0'));
 
         $trick4 = new Trick();
         $trick4->setName('Frontside 540')
+            ->setSlug('Frontside-540')
             ->setContent('Dans notre cas, ça se passe dans le sens frontside comme son nom l’indique, c’est à dire 
             à droite pour les regular et à droite pour les goofies. On peut également l’exécuter en switch, c’est une Cab 5.4, 
             les regulars tourneront alors à Droite et les goofies à gauche.
@@ -154,11 +155,11 @@ Il faut aller chercher la rotation du regard par dessus l’épaule avant, on l�
 
 Pour atterrir, il faut ramener le bas du corps dans l’axe de la réception en se regroupant si on a besoin d’accélérer le mouvement. On détend ses jambes pour aller chercher la réception puis amortir sur les deux jambes au contact du sol. Les épaules doivent être dans l’axe de la board ou légèrement en retard pour arrêter la rotation, surtout si on sent que l’on tournait trop vite, ça évite la sur-rotation. Regardez devant vous.')
             ->setImage($this->getReference('image4'))
-            ->setCategory($this->getReference('Flip2'))
-            ->setVideo($this->getReference('video4'));
+            ->setCategory($this->getReference('Flip2'));
 
         $trick5 = new Trick();
         $trick5->setName('switch back 540')
+            ->setSlug('switch-back-540')
             ->setContent('Alors, comment ça marche le Switch BS 540 ? La méthode en vidéo ci-dessous, commentée avec 
 des mots qui forment des phrases juste après.
 
@@ -178,11 +179,11 @@ Il faut aller chercher la rotation du regard par dessus l’épaule avant. On ap
 
 Pour atterrir, il faut ramener le bas du corps dans l’axe de la réception en se regroupant si on a besoin d’accélérer le mouvement. On détend ses jambes pour aller chercher la réception puis amortir sur les deux jambes au contact du sol. Les épaules doivent être dans l’axe de la board ou légèrement en retard pour arrêter la rotation, surtout si on sent que l’on tournait trop vite, ça évite la sur-rotation. Regardez devant vous une fois que vous avez fini d’amortir.')
             ->setImage($this->getReference('image5'))
-            ->setCategory($this->getReference('Switch4'))
-            ->setVideo($this->getReference('video5'));
+            ->setCategory($this->getReference('Switch4'));
 
         $trick6 = new Trick();
         $trick6->setName('shred en snowboard')
+            ->setSlug('shred-en-snowboard')
             ->setContent('Les tricks peuvent être de simples ollies, un shifty, un grab, une rotation, un press, 
 tout ce qui est flat, et même des rails, bref tout est permis, le but c’est de s’amuser, et n’oublions pas la base, le carving…
 
@@ -203,11 +204,11 @@ On verra en détails certains tricks dans des prochain tutos, dans celui-ci le b
 N’oublions pas que le snowboard c’est juste pour le fun, il ne faut pas hésiter à aller s\'amuser en shreddant ou bon nous semble, sur les pistes autant que dans un jardin ou en ville, tant qu’il y a un bout de neige et de la motivation, ça sera une bonne session.
 ')
             ->setImage($this->getReference('image6'))
-            ->setCategory($this->getReference('Slide3'))
-            ->setVideo($this->getReference('video6'));
+            ->setCategory($this->getReference('Slide3'));
 
         $trick7 = new Trick();
         $trick7->setName('grabs en snowboard')
+            ->setSlug('grabs-en-snowboard')
             ->setContent('Le grab, comment ça marche?
 Il faut d\'abord faire un saut, un simple ollie par exemple comme on peut le voir sur le tuto du ollie. Bien plier les jambes une fois en l’air pour se regrouper, et aller chercher la planche avec la main. Attention il ne faut pas que le buste se casse en deux pour aller chercher la board : ce sont bien les genoux qui remontent pour amener la board vers la main.
 
@@ -227,11 +228,11 @@ Tail grab : La main arrière grabbe le tail (la spatule arrière).
 
 Attention aux zones dites de grabs interdits qui se trouvent entre les spatules et les fixations, il faut avoir beaucoup de style pour s’y risquer et que ça soit joli, un peu comme Shaun White avec ses grabs de boots et de fixations...')
             ->setImage($this->getReference('image7'))
-            ->setCategory($this->getReference('Grab0'))
-            ->setVideo($this->getReference('video7'));
+            ->setCategory($this->getReference('Grab0'));
 
         $trick8 = new Trick();
         $trick8->setName('Tail bonk reverseback 3')
+            ->setSlug('Tail-bonk-reverseback 3')
             ->setContent('L’idéal dans ce genre de tricks est d’avoir un spot avec un peu de distance entre le kick et l’objet (poubelle, poteau, muret, jalon...) que tu veux « bonker ».
 
 Ensuite il faut arriver le plus à plat possible, genoux fléchis, en visualisant bien l’endroit où tu vas venir taper ta deck afin d’avoir le bon axe en sortie de kick. On déclenche le ollie en pompant au mieux dans le kicker afin de profiter de la relance de la planche (photo 1). 
@@ -247,11 +248,11 @@ Une petite variante en faisant d’abord un simple 180 en sortie permettra de se
 Et n’oublie pas, internaute anxieux, « persévérance est mère de récompense ».
 ')
             ->setImage($this->getReference('image8'))
-            ->setCategory($this->getReference('Rotation1'))
-            ->setVideo($this->getReference('video8'));
+            ->setCategory($this->getReference('Rotation1'));
 
         $trick9 = new Trick();
         $trick9->setName('Vale flip')
+            ->setSlug('Vale-flip')
             ->setContent('Pour expliquer un peu ce trick, il faudrait déjà lui donner un nom ! C’est un mélange entre un fs 5 underflip et un rodéo 5. 
 En tout cas, c’est clairement un trick inspiré du pipe que j’ai adapté à ce petit bout de quarter fait maison. 
 Je vais essayer de vous donner les différentes étapes mais comme pour beaucoup de tricks, je pense que le plus important c’est d’avoir la rotation en tête et après c’est beaucoup de feeling. 
@@ -263,8 +264,7 @@ Et enfin, comme pour la plupart des tricks, on vient chercher la réception avec
 Le plus simple pour apprendre reste de se lancer, donc je vous conseille d’essayer, vous allez voir c’est pas si dur !
 ')
             ->setImage($this->getReference('image9'))
-            ->setCategory($this->getReference('Switch4'))
-            ->setVideo($this->getReference('video9'));
+            ->setCategory($this->getReference('Switch4'));
 
         $manager->persist($trick);
         $manager->persist($trick1);
@@ -296,7 +296,6 @@ Le plus simple pour apprendre reste de se lancer, donc je vous conseille d’ess
     {
         return array(
             CategoryFixtures::class,
-            VideoFixtures::class,
             ImageFixtures::class,
         );
     }

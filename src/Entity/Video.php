@@ -32,8 +32,6 @@ class Video
      */
     private $trick;
 
-
-
     public function getId(): ?int
     {
         return $this->id;
