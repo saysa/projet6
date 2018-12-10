@@ -61,9 +61,14 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true, cascade={"remove"})
      */
     private $video;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImageCollection", mappedBy="trick", cascade={"remove"})
+     */
+    private $imageCollections;
 
 
     public function __construct()
@@ -72,6 +77,7 @@ class Trick
         $this->image = new Image();
         $this->comments = new ArrayCollection();
         $this->video = new ArrayCollection();
+        $this->imageCollections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,6 +213,37 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($video->getTrick() === $this) {
                 $video->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ImageCollection[]
+     */
+    public function getImageCollections(): Collection
+    {
+        return $this->imageCollections;
+    }
+
+    public function addImageCollection(ImageCollection $imageCollection): self
+    {
+        if (!$this->imageCollections->contains($imageCollection)) {
+            $this->imageCollections[] = $imageCollection;
+            $imageCollection->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageCollection(ImageCollection $imageCollection): self
+    {
+        if ($this->imageCollections->contains($imageCollection)) {
+            $this->imageCollections->removeElement($imageCollection);
+            // set the owning side to null (unless already changed)
+            if ($imageCollection->getTrick() === $this) {
+                $imageCollection->setTrick(null);
             }
         }
 
