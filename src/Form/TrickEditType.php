@@ -26,9 +26,6 @@ class TrickEditType extends AbstractType
                 'data_class' => Image::class,
                 'required' => false
             ))
-            ->add('video', VideoType::class, array(
-                'label' => false,
-            ))
         ;
     }
 

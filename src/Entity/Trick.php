@@ -61,9 +61,7 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist", "remove"})
-     * @Assert\Valid()
-     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true)
      */
     private $video;
 
@@ -73,6 +71,7 @@ class Trick
         $this->createdAt = new  \DateTime();
         $this->image = new Image();
         $this->comments = new ArrayCollection();
+        $this->video = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,20 +182,36 @@ class Trick
         return $this;
     }
 
-    public function getVideo(): ?Video
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideo(): Collection
     {
         return $this->video;
     }
 
-
-    public function setVideo(Video $video): self
+    public function addVideo(Video $video): self
     {
-        $this->video = $video;
-
-        if ($this !== $video->getTrick()) {
+        if (!$this->video->contains($video)) {
+            $this->video[] = $video;
             $video->setTrick($this);
         }
 
         return $this;
     }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->video->contains($video)) {
+            $this->video->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

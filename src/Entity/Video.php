@@ -27,10 +27,12 @@ class Video
     private $url;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trick", inversedBy="video", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="video")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+
 
     public function getId(): ?int
     {
@@ -54,10 +56,12 @@ class Video
         return $this->trick;
     }
 
-    public function setTrick(Trick $trick): self
+    public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
 
         return $this;
     }
+
+
 }

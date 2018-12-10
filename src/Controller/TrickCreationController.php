@@ -53,6 +53,5 @@ class TrickCreationController extends AbstractController
             'trick' => $trick,
             'form' => $form->createView()
         ]);
-
     }
 }
