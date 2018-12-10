@@ -9,14 +9,14 @@
 namespace App\Controller;
 
 
-use App\Entity\Trick;
+use App\Entity\ImageCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TrickDeleteController extends AbstractController
+class ImageCollectionDeleteController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -29,20 +29,20 @@ class TrickDeleteController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete/{slug}", name="trick_delete")
-     * @param Trick $trick
+     * @Route("/image/delete/{id}", name="image_delete")
+     * @param ImageCollection $imageCollection
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @IsGranted("ROLE_USER")
      */
-    public function trickDelete(Trick $trick, Request $request)
+    public function trickDelete(ImageCollection $imageCollection, Request $request)
     {
         if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
-            $this->entityManager->remove($trick);
+            $this->entityManager->remove($imageCollection);
             $this->entityManager->flush();
         }
 
-        $this->addFlash('success', 'Le trick a bien été supprimé');
+        $this->addFlash('success', 'L\'image a bien été supprimé');
         return $this->redirectToRoute('app_homepage');
     }
 }

@@ -20,11 +20,27 @@
                 <div class="col-md-2 mx-1">
                     <img class="img-thumbnail" src="{{ asset(imageCollection.url ) }}">
                 </div>
+                {% if is_granted('ROLE_USER') %}
+                    <form method="post" action="{{ path('image_delete', {id: imageCollection.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous sûr ?')">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                {% endif %}
             {% endfor %}
         {% for video in trick.getVideo %}
             <div class="col-md-2 mx-1 embed-responsive embed-responsive-21by9">
                 <iframe class="embed-responsive-item"  src="{{ video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+            {% if is_granted('ROLE_USER') %}
+                <form method="post" action="{{ path('video_delete', {id: video.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous sûr ?')">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            {% endif %}
         {% endfor %}
         </div>
     </div>

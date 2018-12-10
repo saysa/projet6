@@ -9,14 +9,14 @@
 namespace App\Controller;
 
 
-use App\Entity\Trick;
+use App\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TrickDeleteController extends AbstractController
+class VideoDeleteController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -29,20 +29,20 @@ class TrickDeleteController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete/{slug}", name="trick_delete")
-     * @param Trick $trick
+     * @Route("/video/delete/{id}", name="video_delete")
+     * @param Video $video
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @IsGranted("ROLE_USER")
      */
-    public function trickDelete(Trick $trick, Request $request)
+    public function trickDelete(Video $video, Request $request)
     {
         if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
-            $this->entityManager->remove($trick);
+            $this->entityManager->remove($video);
             $this->entityManager->flush();
         }
 
-        $this->addFlash('success', 'Le trick a bien été supprimé');
+        $this->addFlash('success', 'La vidéo a bien été supprimé');
         return $this->redirectToRoute('app_homepage');
     }
 }
