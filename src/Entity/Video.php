@@ -19,6 +19,7 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez ajouter une video")
      * @Assert\Regex(
      *     pattern="/(embed)+/",
      *     message="Votre lien doit être de type https://www.youtube.com/embed/..."
