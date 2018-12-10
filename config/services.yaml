@@ -28,18 +28,9 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    App\EventListener\SlugCreatorListener:
-        tags:
-        - { name: doctrine.event_listener, event: prePersist }
-        - { name: doctrine.event_listener, event: preUpdate }
-
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%avatar_directory%'
-
-    App\EventListener\PasswordHashListener:
-        tags:
-        - { name: doctrine.event_listener, event: prePersist }
 
     App\DataFixtures\:
       resource: '../src/DataFixtures'

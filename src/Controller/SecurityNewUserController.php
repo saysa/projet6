@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\FileUploader;
+use App\Service\PasswordHash;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,10 @@ class SecurityNewUserController extends AbstractController
      * @param FileUploader $fileUploader
      * @param Request $request
      * @param EntityManagerInterface $entityManager
+     * @param PasswordHash $passwordHash
      * @return mixed
      */
-    public function newUser(FileUploader $fileUploader, Request $request, EntityManagerInterface $entityManager)
+    public function newUser(FileUploader $fileUploader, Request $request, EntityManagerInterface $entityManager, PasswordHash $passwordHash)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -31,6 +33,7 @@ class SecurityNewUserController extends AbstractController
             $fileName = $fileUploader->upload($file);
 
             $user->setAvatar($fileName);
+            $user->setPassword($passwordHash->passwordHash($user));
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Vous êtes bien enregistré');

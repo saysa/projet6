@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Service\SlugCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,16 +33,19 @@ class TrickCreationController extends AbstractController
     /**
      * @Route("/trick/new", name="trick_create")
      * @param Request $request
+     * @param SlugCreator $slugCreator
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_USER")
      */
-    public function createTrick(Request $request)
+    public function createTrick(Request $request, SlugCreator $slugCreator)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $trick->setSlug($slugCreator->createSlug($trick));
 
             $this->entityManager->persist($trick);
             $this->entityManager->flush();

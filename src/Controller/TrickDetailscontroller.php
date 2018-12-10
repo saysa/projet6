@@ -12,7 +12,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickEditType;
-use App\Repository\TrickRepository;
+use App\Service\SlugCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,15 +35,19 @@ class TrickDetailscontroller extends AbstractController
      * @Route("/trick/edit/{slug}", name="trick_details")
      * @param Trick $trick
      * @param Request $request
+     * @param SlugCreator $slugCreator
      * @return \Symfony\Component\HttpFoundation\Response
      * @IsGranted("ROLE_USER")
      */
-    public function trickDetails(Trick $trick, Request $request)
+    public function trickDetails(Trick $trick, Request $request, SlugCreator $slugCreator)
     {
         $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $trick->setSlug($slugCreator->createSlug($trick));
+
             $this->entityManager->flush();
             $this->addFlash('success', 'Le trick à bien été modifié');
             return $this->redirectToRoute('app_homepage');
