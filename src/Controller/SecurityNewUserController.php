@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Event\CreateUserEvent;
 use App\Form\UserType;
 use App\Service\FileUploader;
 use App\Service\PasswordHash;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,13 +17,12 @@ class SecurityNewUserController extends AbstractController
 {
     /**
      * @Route("/register", name="register_user")
-     * @param FileUploader $fileUploader
      * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param PasswordHash $passwordHash
+     * @param EventDispatcherInterface $event_dispatcher
+     *
      * @return mixed
      */
-    public function newUser(FileUploader $fileUploader, Request $request, EntityManagerInterface $entityManager, PasswordHash $passwordHash)
+    public function newUser(Request $request, EventDispatcherInterface $event_dispatcher)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -29,14 +30,9 @@ class SecurityNewUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file = $user->getAvatar();
-            $fileName = $fileUploader->upload($file);
+            $event = new CreateUserEvent($user);
+            $event_dispatcher->dispatch(CreateUserEvent::NAME, $event);
 
-            $user->setAvatar($fileName);
-            $user->setPassword($passwordHash->passwordHash($user));
-            $entityManager->persist($user);
-            $entityManager->flush();
-            $this->addFlash('success', 'Vous êtes bien enregistré');
             return $this->redirectToRoute('app_homepage');
         }
 
